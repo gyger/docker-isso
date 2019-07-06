@@ -27,10 +27,12 @@ RUN apk add --update \
     rm -rf /var/cache/apk/*
 
 RUN addgroup -S isso && adduser -S -G isso isso 
-USER isso
-RUN mkdir -p /isso && mkdir -p /isso/database
-ADD src/isso.conf /isso.conf
+RUN mkdir -p /isso && \
+    mkdir -p /isso/database && \
+    chown -R isso.isso /isso
 
+USER isso
+ADD src/isso.conf /isso/isso.conf
 ENV ISSO_SETTINGS /isso/isso.conf
 
 EXPOSE 8080
