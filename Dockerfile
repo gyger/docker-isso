@@ -14,12 +14,13 @@ ENV LC_ALL en_US.UTF-8
 RUN apk add --update \
         python \
         ca-certificates \
-        python-dev \
         py-pip \
         sqlite  && \
     update-ca-certificates && \
     apk add --virtual .build-dependencies \
-        build-base  && \
+        build-base \
+	libffi-dev \
+	python-dev && \
     pip install --no-cache "isso==${ISSO_VER}" && \
     pip install --no-cache gunicorn && \
     apk del .build-dependencies && \
